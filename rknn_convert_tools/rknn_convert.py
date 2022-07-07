@@ -18,7 +18,7 @@ yaml_file = './config.yaml'
 
 def main():
     with open(yaml_file, 'r') as F:
-        config = yaml.load(F)
+        config = yaml.load(F,Loader=yaml.FullLoader)
     # print('config is:')
     # print(config)
 
@@ -74,6 +74,7 @@ def main():
 
         print('--> load img')
         img = cv2.imread(config['img']['path'])
+        img = cv2.resize(img, (320, 320))
         print('img shape is {}'.format(img.shape))
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         inputs = [img]
@@ -86,7 +87,7 @@ def main():
             outputs = rknn.inference(inputs)
             #outputs = rknn.inference(config['inference'])
             print('len of output {}'.format(len(outputs)))
-            print('outputs[0] shape is {}'.format(outputs[0].shape))
+            [print('output shape is {}'.format(output.shape)) for output in outputs]
             print(outputs[0][0][0:2])
         else:
             print('--> skip inference')

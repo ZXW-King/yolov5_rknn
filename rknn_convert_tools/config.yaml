@@ -1,7 +1,7 @@
 running:
   model_type: onnx
   export: True
-  inference: False
+  inference: True
   eval_perf: False
 
 
@@ -21,7 +21,7 @@ parameters:
     model: './sample/tflite/mobilenet_v1/mobilenet_v1.tflite'
 
   onnx:
-    model: './best.onnx'
+    model: '/media/hao/CODE/MODEL/Abby/A6.0.1/best.onnx'
 
   darknet:
     model: './yolov3-tiny.cfg'
@@ -37,22 +37,19 @@ parameters:
     input_size_list: [[3, 224, 224]]
 
   rknn:
-    path: './test.rknn'
+    path: '/media/hao/CODE/MODEL/Abby/A6.0.1/test.rknn'
 
 config:
-  channel_mean_value: '0 0 0 255' # 123.675 116.28 103.53 58.395 # 0 0 0 255
-  reorder_channel: '2 1 0' # '0 1 2' '2 1 0'
-  need_horizontal_merge: True
-  batch_size: 10
-  epochs: 100
-  target_platform: ['rk1808']
-  quantized_dtype: 'asymmetric_quantized-u8' # asymmetric_quantized-u8,dynamic_fixed_point-8,dynamic_fixed_point-16
+  mean_values: [0, 0, 0] # 123.675 116.28 103.53 58.395 # 0 0 0 255
+  std_values: [255, 255, 255]
+  quant_img_RGB2BGR: True # '2 1 0' # '0 1 2' '2 1 0'
+  target_platform: 'rk3566'
+  quantized_dtype: 'asymmetric_quantized-8' # asymmetric_quantized-u8,dynamic_fixed_point-8,dynamic_fixed_point-16
   optimization_level: 1
 
 build:
   do_quantization: True
-  dataset: './single_dataset.txt' 
-  pre_compile: False
+  dataset: './single_dataset.txt'
 
 export_rknn:
   export_path: './best.rknn'
@@ -65,7 +62,7 @@ init_runtime:
   async_mode: False
 
 img: &img
-  path: './test.jpg'
+  path: './bus.jpg'
 
 inference:
   inputs: *img
