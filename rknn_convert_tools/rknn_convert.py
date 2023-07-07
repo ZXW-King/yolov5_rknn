@@ -74,7 +74,7 @@ def main():
 
         print('--> load img')
         img = cv2.imread(config['img']['path'])
-        img = cv2.resize(img, (320, 320))
+        img = cv2.resize(img, (640, 416))
         print('img shape is {}'.format(img.shape))
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         inputs = [img]

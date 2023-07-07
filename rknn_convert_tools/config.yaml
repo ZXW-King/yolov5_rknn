@@ -21,7 +21,7 @@ parameters:
     model: './sample/tflite/mobilenet_v1/mobilenet_v1.tflite'
 
   onnx:
-    model: '/media/hao/CODE/MODEL/Abby/A6.0.1/best.onnx'
+    model: '/media/xin/work1/npu/alike_3566/yolov5_rknn/rknn_convert_tools/convert_models/alinet-n.onnx'
 
   darknet:
     model: './yolov3-tiny.cfg'
@@ -52,7 +52,7 @@ build:
   dataset: './single_dataset.txt'
 
 export_rknn:
-  export_path: './best.rknn'
+  export_path: './export_models/alinet-n.rknn'
 
 init_runtime:
   target: null
@@ -62,18 +62,18 @@ init_runtime:
   async_mode: False
 
 img: &img
-  path: './bus.jpg'
+  path: './data/images/bus.jpg'
 
 inference:
   inputs: *img
   data_type: 'uint8'
-  data_format: 'nhwc' # 'nchw', 'nhwc'
+  data_format: 'nchw' # 'nchw', 'nhwc'
   inputs_pass_through: None 
 
 eval_perf:
   inputs: *img
   data_type: 'uint8'
-  data_format: 'nhwc'
+  data_format: 'nchw'
   is_print: True
 
 
